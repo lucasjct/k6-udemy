@@ -98,9 +98,73 @@ we can use enrironment variable to run tests on pipeline. Ex: github action, the
 
 
 Available options to scenarios
-* executor 
+* executor:
+    * [shared-iterations, per-vu-iterations]
+    * [constant-vus, ramping-vus]
+    * [constant-arrival-rate, ramping-arrival-rate]
 * startTime
 * gracefulstop
-* exec ([shared-iterations, per-vu-iterations], [constant-vus, ramping-vus], [constant-arrival-rate, ramping-arrival-rate])
+* exec 
 * env
 * tags
+
+
+## export report to github pages:  
+
+first use the module and function to create report:   
+module:  
+`import { htmlReport } from "https://raw.githubusercontent.com/benc-uk/k6-reporter/main/dist/bundle.js";`    
+
+
+function. See details: [test-function]("./run-on-github-actions/test.js"):   
+```javascript
+// function to generate report
+
+export function handleSummary(data){
+    return {
+        'index.html': htmlReport(data),
+    };
+}
+```  
+
+* create a new branch, ex: gh-pages  
+* select this branch on repository
+* go to project settings and Select pages  
+
+The yaml file to run the workflow, should use some configurations. See below:
+
+
+permission to write:
+
+```
+permissions:
+  contents: write
+```  
+
+create directory and file with the same name created on report function:
+
+`- run: ls & mkdir report & mv index.html report`  
+
+
+The last one, use artifact to generate the report. And action to deploy the report page.
+
+```
+ - name: upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: report performance test
+          path: report
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: report
+```  
+
+note: we should use the same name to repor directory and the name of branch that we configure the github page.
+
+
+See the file complete:  
+[load-test]('./run-on-github-actions/test.js')
