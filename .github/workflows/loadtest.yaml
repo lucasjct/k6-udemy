@@ -3,8 +3,8 @@ name: k6 load test
 
 on:
   workflow_dispatch
-
-
+permissions: ## permission mandatory to build gh-pages
+  contents: write
 jobs:
   run-test:
     runs-on: ubuntu-latest
@@ -20,11 +20,18 @@ jobs:
         with:
           path: run-on-github-actions/test.js
         
-
-      - run: mkdir report && mv index.hml report
+      - run: mkdir report && mv index.html report
 
       - name: upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: report performance test
           path: report
+      # action to deploy artifact. Note: the publish directory should have the same name 
+      # created on command abouve (name: report).
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: report
