@@ -1,0 +1,30 @@
+name: k6 load test
+
+
+on:
+  workflow_dispatch
+
+
+jobs:
+  run-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: Setup K6
+        uses: grafana/setup-k6-action@v1
+
+      - name: Run local test
+        uses: grafana/run-k6-action@v1
+        with:
+          path: run-on-github-actions/test.js
+        
+
+      - run: mkdir report && mv index.hml report
+
+      - name: upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: report performance test
+          path: report
