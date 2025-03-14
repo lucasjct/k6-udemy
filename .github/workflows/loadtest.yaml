@@ -18,7 +18,7 @@ jobs:
       - name: Run local test
         uses: grafana/run-k6-action@v1
         with:
-          path: run-on-github-actions/test.js
+          filename: run-on-github-actions/test.js
         
       - run: ls & mkdir report & mv index.html report
 
