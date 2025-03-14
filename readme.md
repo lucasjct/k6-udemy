@@ -116,7 +116,7 @@ module:
 `import { htmlReport } from "https://raw.githubusercontent.com/benc-uk/k6-reporter/main/dist/bundle.js";`    
 
 
-function. See details: [test-function]("./run-on-github-actions/test.js"):   
+function. See details: [test-function]("/run-on-github-actions/test.js"):   
 ```javascript
 // function to generate report
 
