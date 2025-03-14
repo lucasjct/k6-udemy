@@ -1,5 +1,8 @@
 import http from 'k6/http'
 import {check} from 'k6'
+// the module below is mandatory to generate the report
+import { htmlReport } from "https://raw.githubusercontent.com/benc-uk/k6-reporter/main/dist/bundle.js";
+
 
 // smoke test
 export const options = {
@@ -19,7 +22,7 @@ export default function(){
     })
 }
 
-// generate report
+// function to generate report
 
 export function handleSummary(data){
     return {
