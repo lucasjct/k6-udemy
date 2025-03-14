@@ -1,0 +1,37 @@
+name: k6 load test
+
+on:
+  workflow_dispatch
+  
+permissions:
+  contents: write
+
+jobs:
+  run-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: Setup K6
+        uses: grafana/setup-k6-action@v1
+
+      - name: Run local test
+        uses: grafana/k6-action@v0.2.0
+        with:
+          filename: run-on-github-actions/test.js
+      # the blocks below are related to create and deploy a report.  
+      - run: ls & mkdir report & mv index.html report
+
+      - name: upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: report performance test
+          path: report
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: report
