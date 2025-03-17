@@ -23,7 +23,6 @@ export default function(){
 }
 
 // function to generate report
-
 export function handleSummary(data){
     return {
         'index.html': htmlReport(data),

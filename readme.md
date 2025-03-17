@@ -116,7 +116,7 @@ module:
 `import { htmlReport } from "https://raw.githubusercontent.com/benc-uk/k6-reporter/main/dist/bundle.js";`    
 
 
-function. See details: [test-function]("/run-on-github-actions/test.js"):   
+function. See details: [test-function]("./run-on-github-actions/test.js"):   
 ```javascript
 // function to generate report
 
@@ -148,7 +148,7 @@ create directory and file with the same name created on report function:
 `- run: ls & mkdir report & mv index.html report`  
 
 
-The last one, use artifact to generate the report. And action to deploy the report page.
+The last one, use artifact actions to generate the report. And deploy action to report webpage.
 
 ```
  - name: upload artifact
@@ -169,4 +169,36 @@ note: we should use the same name to repor directory and the name of branch that
 
 
 See the file complete:  
-[load-test]('./run-on-github-actions/test.js')
+[load-test]('./run-on-github-actions/test.js')  
+
+
+## k6 browser    
+
+References:  
+
+[k6-Browser](https://grafana.com/docs/k6/latest/using-k6-browser/)    
+[Core-vital learn about metrics](https://web.dev/explore/learn-core-web-vitals?hl=pt-br)
+
+
+The metrics presents on k6 Browser   
+Check [Browser Metrics](https://grafana.com/docs/k6/latest/using-k6-browser/metrics/)
+
+```
+ browser_data_received.......: 5.8 kB  1.9 kB/s
+     browser_data_sent...........: 1.8 kB  585 B/s
+     browser_http_req_duration...: avg=399.39ms min=696µs   med=155.54ms max=1.53s p(90)=981.89ms p(95)=1.25s
+     browser_http_req_failed.....: 0.00%   0 out of 5
+     browser_web_vital_cls.......: avg=0        min=0       med=0        max=0     p(90)=0        p(95)=0    
+     browser_web_vital_fcp.......: avg=1s       min=408ms   med=1s       max=1.59s p(90)=1.47s    p(95)=1.53s
+     browser_web_vital_fid.......: avg=300µs    min=300µs   med=300µs    max=300µs p(90)=300µs    p(95)=300µs
+     browser_web_vital_inp.......: avg=40ms     min=40ms    med=40ms     max=40ms  p(90)=40ms     p(95)=40ms 
+     browser_web_vital_lcp.......: avg=1s       min=408ms   med=1s       max=1.59s p(90)=1.47s    p(95)=1.53s
+     browser_web_vital_ttfb......: avg=943.45ms min=356.5ms med=943.45ms max=1.53s p(90)=1.41s    p(95)=1.47s
+   ✓ checks......................: 100.00% 1 out of 1
+     data_received...............: 0 B     0 B/s
+     data_sent...................: 0 B     0 B/s
+     iteration_duration..........: avg=2.58s    min=2.58s   med=2.58s    max=2.58s p(90)=2.58s    p(95)=2.58s
+     iterations..................: 1       0.325173/s
+     vus.........................: 1       min=1      max=1
+     vus_max.....................: 1       min=1      max=1
+```
