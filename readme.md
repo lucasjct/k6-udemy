@@ -1,4 +1,4 @@
-Performance Testing
+# Performance Testing
 
 * Smoke test (few user) and few time.
 * Load test (more user, different stages (3) with number different number of users). Different time and periods.
@@ -45,7 +45,7 @@ export function teardown(data){
 
 We can see the metrics in the output:  
 
-```
+```bash
      checks.........................: 100.00% 9 out of 9
      data_received..................: 111 kB  34 kB/s
      data_sent......................: 2.2 kB  663 B/s
@@ -65,31 +65,31 @@ We can see the metrics in the output:
      vus_max........................: 1       min=1       max=1
 ```
 
-// Coustume mettrics class 04
+## Coustumizing metrics 
 
 
-// Thresholds
+## Thresholds
 
 thresholds on failure
 
 
-// Modules
+## Types of Modules
 Builtin modules
 Remote modules
 Local modules
 
 
-// Groups
+## Groups
 
 We can use groups to organize the scripts and output.
 
-// tags
+## tags  
 https://grafana.com/docs/k6/latest/using-k6/tags-and-groups/
 
-// env var
+## env var
 we can use enrironment variable to run tests on pipeline. Ex: github action, the user should put the variable value manualy. 
 
-// Scenarios
+##  Scenarios
 * Organizing the test
 * simulation realistics
 * Workload in paralel
@@ -116,7 +116,7 @@ module:
 `import { htmlReport } from "https://raw.githubusercontent.com/benc-uk/k6-reporter/main/dist/bundle.js";`    
 
 
-function. See details: [test-function]("./run-on-github-actions/test.js"):   
+function. See details: [test-function](run-on-github-actions/test.js):   
 ```javascript
 // function to generate report
 
@@ -150,7 +150,7 @@ create directory and file with the same name created on report function:
 
 The last one, use artifact actions to generate the report. And deploy action to report webpage.
 
-```
+```bash
  - name: upload artifact
         uses: actions/upload-artifact@v4
         with:
@@ -168,8 +168,12 @@ The last one, use artifact actions to generate the report. And deploy action to 
 note: we should use the same name to repor directory and the name of branch that we configure the github page.
 
 
-See the file complete:  
-[load-test]('./run-on-github-actions/test.js')  
+See the complete files:  
+[load-test](run-on-github-actions/test.js)   
+[workflow](.github/workflows/loadtest.yaml)   
+
+
+[check webpage output](https://github.com/lucasjct/k6-udemy/actions/runs/13850468143)
 
 
 ## k6 browser    
@@ -183,7 +187,7 @@ References:
 The metrics presents on k6 Browser   
 Check [Browser Metrics](https://grafana.com/docs/k6/latest/using-k6-browser/metrics/)
 
-```
+```bash
  browser_data_received.......: 5.8 kB  1.9 kB/s
      browser_data_sent...........: 1.8 kB  585 B/s
      browser_http_req_duration...: avg=399.39ms min=696µs   med=155.54ms max=1.53s p(90)=981.89ms p(95)=1.25s
