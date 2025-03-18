@@ -14,7 +14,7 @@
 Important concepts:
 
 
-* Cycle of life:  
+* Performance testing life cycle structure:  
 
 
 ```javascript
